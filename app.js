@@ -5,19 +5,18 @@ app.config(function($routeProvider)  {
     $routeProvider
         // homepage
         .when('/home', {
-            // this is a template
-            template: '<h1>This is the default route</h1>'
+            templateUrl: 'home/home.html',
         })
         .when('/login', {
             templateUrl: 'login/login.html',
             controller : 'loginCtrl as loginctrl'
-        });
+        })
         // about
-        // .when('/about', {
-        //     // this is a template url
-        //     templateUrl: 'pages/about/about.html',
-        //     controller : 'aboutController as abtCtrl'
-        // })
+        .when('/about', {
+            // this is a template url
+            // templateUrl: 'pages/about/about.html',
+            // controller : 'aboutController as abtCtrl'
+        })
         // // poi
         // .when('/poi', {
         //     templateUrl: 'pages/poi/poi.html',
@@ -28,5 +27,5 @@ app.config(function($routeProvider)  {
         //     controller : 'httpController as httpCtrl'
         // })
         // other
-        // .otherwise({ redirectTo: '/home' });
+        .otherwise({ redirectTo: '/home' });
 }); 
