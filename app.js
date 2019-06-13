@@ -1,6 +1,11 @@
 let app = angular.module('myApp', ["ngRoute"]);
-
+// var currUser="guest";
 // config routes
+
+app.run(function ($rootScope) {
+    $rootScope.rUsername = "guest";
+ });
+
 app.config(function($routeProvider)  {
     $routeProvider
         // homepage
@@ -11,8 +16,20 @@ app.config(function($routeProvider)  {
             templateUrl: 'login/login.html',
             controller : 'loginCtrl as loginctrl'
         })
+        .when('/register', {
+            templateUrl: 'register/register.html',
+            // this is a template url
+            // templateUrl: 'pages/about/about.html',
+            // controller : 'aboutController as abtCtrl'
+        })
         // about
         .when('/about', {
+            // this is a template url
+            // templateUrl: 'pages/about/about.html',
+            // controller : 'aboutController as abtCtrl'
+        })
+        .when('/logedIn', {
+            templateUrl: 'logedIn/logedIn.html',
             // this is a template url
             // templateUrl: 'pages/about/about.html',
             // controller : 'aboutController as abtCtrl'

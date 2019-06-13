@@ -14,11 +14,12 @@
     <!-- load controllers -->
     <!-- <script src="pages/about/aboutController.js"></script> -->
     <!-- <script src="pages/poi/poiController.js"></script> -->
-    <!-- <script src="pages/http/httpController.js"></script> -->
+    <script src="/login/loginCtrl.js"></script>
     <script src="/explore/exploreCtrl.js"></script>
     <script src="/login/restorePasswordCtrl.js"></script>
 
-    <div id="menu">
+    <div id="menu" ng-init="currUser='guest'">
+        hello {{currUser}}
         <li><a href="#!home">Home</a></li>
         <li><a href="#!about">About</a></li>
         <li><a href="#!poi">Points of interest</a></li>
