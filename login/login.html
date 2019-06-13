@@ -1,5 +1,23 @@
-<h2>login</h2>
-
-<!-- display button functionality -->
-<div>
-</div>
+<head>
+    <link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<script src="app.js"></script>
+<h1>login page</h1>
+<div id="loginDiv">
+        <div id="usernameLogin">
+            <h4>username:</h4>
+            <input ng-model="usernameTextBox" type="text">
+        </div>
+        <div id="passwordLogin">
+            <h4>password:</h4>
+            <input ng-model="passwordTextBox" type="text">
+        </div>
+        <div id="acceptLoginDiv">
+            <br>
+            <button ng-click="checkDetails(usernameTextBox,passwordTextBox)">submit</button>
+            <br>
+            <br>
+            <a href="/login/restorePassword.html" class="button">restore password</a>
+            <!-- <button id="acceptLoginButton" onclick="">send</button> -->
+        </div>
+    </div>
