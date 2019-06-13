@@ -1,0 +1,13 @@
+
+
+<div>
+    <form name="loginForm" ng-submit="submit()" novalidate>
+        <input type="text" name="uname" ng-model="uname" required ng-minlength="4">
+        <span ng-show="loginForm.uname.$error.required">This is required! </span>
+        <span ng-show="loginForm.uname.$error.minlength">Minimum length is 4 </span>
+        <span ng-show="loginForm.uname.$invalid">Invalid field</span><br><br>
+        <input ng-disabled="loginForm.$invalid" type="submit" id="submit" value="Submit">
+    </form>
+
+    <p>{{ answer }}</p>
+</div>
