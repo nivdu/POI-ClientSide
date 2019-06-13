@@ -18,38 +18,29 @@
     <script src="/explore/exploreCtrl.js"></script>
 
     <div id="menu">
-    <li><a href="#!about">About</a></li>
-    <li><a href="#!poi">Points of interest</a></li>
-    <li><a href="#!favPoi">Favorite points of interest</a></li>
+        <li><a href="#!home">Home</a></li>
+        <li><a href="#!about">About</a></li>
+        <li><a href="#!poi">Points of interest</a></li>
+        <li><a href="#!favPoi">Favorite points of interest</a></li>
     </div>
 
-    <div id="entry">
+    <!-- <div id="entry">
         <div id="entryLogin">
             <h4>You can log in here</h4>
-            <a href="#!login">login</button>
+            <a href="#!login">login</a>
         </div>
         <div id="entryRegister">
             <h4>You can register here</h4>
-            <a href="#!register">register</button>
+            <br>
+            <a href="#!register">register</a>
         </div>
-    </div>
-
+    </div> -->
+    <div ng-view></div>
     <div id="explore" ng-controller="exploreCtrl">
         <!-- use api and get 3 poi to show here -->
-        <ul>
-                <li ng-repeat="poi in pois">
-                  {{ poi.name + ', ' + poi.poiImage }}
-                </li>
+        <ul ng-repeat="poi in pois">
+             {{ poi.name + ', ' + poi.poiImage }}
         </ul>
-        <!-- <div id="explorePOI_1">
-            {{poi_1}}
-        </div>
-        <div id="explorePOI_2">
-            {{poi_2}}
-        </div>
-        <div id="explorePOI_3">
-            {{poi_3}}
-        </div> -->
     </div>
 
 </body>

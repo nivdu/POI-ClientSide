@@ -1,14 +1,18 @@
 let app = angular.module('myApp', ["ngRoute"]);
 
 // config routes
-// app.config(function($routeProvider)  {
-    // $routeProvider
+app.config(function($routeProvider)  {
+    $routeProvider
         // homepage
-        // .when('/', {
-        //     // this is a template
-        //     template: '<h1>This is the default route</h1>'
-        // })
-        // // about
+        .when('/home', {
+            // this is a template
+            template: '<h1>This is the default route</h1>'
+        })
+        .when('/login', {
+            templateUrl: 'login/login.html',
+            controller : 'loginCtrl as loginctrl'
+        });
+        // about
         // .when('/about', {
         //     // this is a template url
         //     templateUrl: 'pages/about/about.html',
@@ -24,5 +28,5 @@ let app = angular.module('myApp', ["ngRoute"]);
         //     controller : 'httpController as httpCtrl'
         // })
         // other
-        // .otherwise({ redirectTo: '/' });
-// });
+        // .otherwise({ redirectTo: '/home' });
+}); 
