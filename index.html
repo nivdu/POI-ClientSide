@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
+<link rel="stylesheet" type="text/css" href="css.css" />
+<!-- <link rel="stylesheet" type="text/css" href="about.css" /> -->
 </head>
-<body ng-app="myApp">
+<body ng-app="myApp" background="PicBeer7/backgroundcolor.jpg">
     <!-- load angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
     <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
@@ -19,12 +20,16 @@
     <script src="/login/restorePasswordCtrl.js"></script>
 
     <div id="menu" ng-init="currUser='guest'">
-        hello {{currUser}}
-        <li><a href="#!home">Home</a></li>
-        <li><a href="#!about">About</a></li>
-        <li><a href="#!poi">Points of interest</a></li>
-        <li><a href="#!favPoi">Favorite points of interest</a></li>
-        <li><a href="#!restPass">restore pass</a></li>
+        <ul id="helloUser">
+        <li id="helloUser" style="font-size: 15px">hello {{currUser}}</li>
+        </ul>
+        <ul id="ulMenuBar">
+        <li class="menuBar"><a href="#!home" class="active">Home</a></li>
+        <li class="menuBar"><a href="#!about" >About</a></li>
+        <li class="menuBar"><a href="#!poi" >Points of interest</a></li>
+        <li class="menuBar"><a href="#!favPoi" >Favorite points of interest</a></li>
+        <li class="menuBar"><a href="#!restPass" >restore pass</a></li>
+    </ul>
     </div>
 
     <!-- <div id="entry">
@@ -43,10 +48,29 @@
 
     <div id="explore" ng-controller="exploreCtrl">
         <!-- use api and get 3 poi to show here -->
-        <ul ng-repeat="poi in pois">
-            {{ poi.name}}
-            <img ng-src="{{poi.poiImage}}">
-        </ul>
+        
+        <div id="down0" ng-repeat="poi in pois">
+                
+            <div id="down1" ng-show="$index===0">
+                <a href="#!home">
+                {{poi.name}}
+                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+            </a>
+            </div>
+            <div id="down2" ng-show="$index===1">
+                    <a href="#!home">
+                {{poi.name}}
+                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+                    </a>
+            </div>
+            <div id="down3" ng-show="$index===2">
+                    <a href="#!home">
+                {{poi.name}}
+                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+                    </a>
+            </div>                    
+        </div>
+    
     </div>
 
 </body>
