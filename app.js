@@ -25,7 +25,7 @@ app.config(function($routeProvider)  {
         // about
         .when('/about', {
             // this is a template url
-            // templateUrl: 'pages/about/about.html',
+            templateUrl: '  about/about.html',
             // controller : 'aboutController as abtCtrl'
         })
         .when('/logedIn', {

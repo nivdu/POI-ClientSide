@@ -14,7 +14,7 @@
                     $scope.myWelcome = response.statusText;//todo
                 });
         }
-});
+    });
 
 
 
