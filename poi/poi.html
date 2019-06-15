@@ -17,11 +17,11 @@ display all cities
     <link rel="stylesheet" type="text/css" href="css.css">
 </head>
 <div>
-    <div id="entryLogin">
+    <!-- <div id="entryLogin">
         <h4>sort by rank</h4>
-        <!-- <a href="#!poi" class="button">sort</a> -->
+        <a href="#!poi" class="button">sort</a>
         <button ng-click="sortByFunc()">sort by rank</button>
-    </div>
+    </div> -->
     <!-- <div id="entryRegister">
         <h4>favorites poi page</h4>
         <a href="#!favoritesPOI" class="button">favorites</a>
@@ -33,16 +33,27 @@ display all cities
         <div id="down0" ng-init="sortBy='name'">
             <table id={{$index}}>
                     <tr>
-                            <th>name</th>
-                            <th>category</th>
-                            <th>image</th>
-                          </tr>
-                          <tr ng-repeat="poi in allPOIs | orderBy:'+sortBy'">
-                                <!-- | orderBy:'+rank' -->
-                                <td><button ng-click="showSingle(poi)"> {{poi.name}}</button></td>
-                            
-                            <td>{{poi.CategoryName}}</td>
-                            <td><img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></td>
+                        <th>
+                            <a href="#!/poi" class="button" ng-click="orderByField='name'; reverseSort = !reverseSort">
+                            name
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#!/poi" class="button" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort">
+                            category
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#!/poi" class="button" ng-click="orderByField='image'; reverseSort = !reverseSort">
+                            image
+                            </a>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="poi in allPOIs | orderBy:orderByField:reverseSort">
+                        <!-- | orderBy:'+rank' -->
+                        <td><button ng-click="showSingle(poi)"> {{poi.name}}</button></td>
+                        <td>{{poi.CategoryName}}</td>
+                        <td><img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></td>
                     </tr>
                 <!-- <button ng-click="showSingle(poi)">
                     {{poi.name}}

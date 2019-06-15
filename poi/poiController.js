@@ -9,6 +9,9 @@
 //     }
 // });
 angular.module("myApp").controller("poiController", function ($scope, $http, $window, $rootScope) {
+    $scope.orderByField = 'name';
+    $scope.reverseSort = false;
+    
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetAllPOI"
@@ -30,7 +33,7 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     }
 
     $scope.sortByFunc=function(){
-        $scope.sortBy="name";
+        $scope.sortBy="category";
     }
 });
 

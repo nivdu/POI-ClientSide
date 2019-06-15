@@ -62,7 +62,7 @@ app.config(function($routeProvider)  {
         })
         
         // other
-        .otherwise({ redirectTo: '/home' });
+        // .otherwise({ redirectTo: '/home' });
 }); 
 
 // var token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibml2ZHVkIiwiaWF0IjoxNTYwNDU3NzY2LCJleHAiOjE1NjA1NDQxNjZ9.WrziwsOwN_WC38prHFLU3NjrcGfoqzQhjV0ZAMSIsGY';
