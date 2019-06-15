@@ -24,10 +24,13 @@ var number = 0;
                 // headers : {
                     // 'x-auth-token': token
                 // },
-                data: { ansDesc1: ansFirst, ansDesc2: ansSecond, username: $rootScope.restoreUserName, questID1: $scope.questions[0], questID2:$scope.questions[1]}
+                data: { ansDesc1: ansFirst, ansDesc2: ansSecond, username: $rootScope.restoreUserName, questID1: $scope.questions[0].questID, questID2:$scope.questions[1].questID}
             }).then(function success(response){
+                $scope.password = response.data;
+                $window.alert("Your password is:" + $scope.password[0].passwd)
                 $window.location.href = "#!/login"
             }, function myError(response){
+                $scope.alertRes = response.data;
                 // $scope.questions=response.statuseText;
         }); 
     }

@@ -1,4 +1,27 @@
 <head>
         <link rel="stylesheet" type="text/css" href="css.css">
-        
 </head>
+<body>
+        <table border="1">
+                <tr>
+                        <td>
+                                <h2>Recommended points of interest for you </h2>
+                                <ul>
+                                        <li ng-repeat="poi in recommendedPois track by $index">
+                                                {{poi.name}}
+                                                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+                                        </li>
+                                </ul>
+                        </td>
+                        <td>
+                                <h2>Your last saved points of interest</h2>
+                                <ul>
+                                        <li ng-repeat="poiSave in savedPois track by $index">
+                                                {{poiSave.name}}
+                                                <img ng-src="{{poiSave.poiImage}}" style="width: 160px; height: 160px;">
+                                        </li>
+                                </ul>
+                        </td>
+                </tr>
+        </table>
+</body>
