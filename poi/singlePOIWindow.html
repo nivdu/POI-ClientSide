@@ -3,15 +3,28 @@
 </head>
 <div id="entry">
     <div id="entryLogin">
-        <h4>sort by rank</h4>
-        <a href="#!login" class="button">sort</a>
+        <p>Number of views: {{SinglepoinumberOfViews}}</p>
+        <p>Description: {{SinglepoiDescription}}</p>
+        <p>Rank: {{Singlepoirank}}</p>
+        <p>ID: {{SinglepoiID}}</p>
+        <p>Name: {{SinglepoiName}}</p>
+        <p>Category: {{SinglepoiCategoryName}}</p>
+        <img ng-src="{{SinglepoiImage}}" style="width: 160px; height: 160px;">
+        <!-- $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
+        $scope.SinglepoiDescription=singlePOI.poiDescription;
+        $scope.Singlepoirank=singlePOI.rank;
+        $scope.SinglepoiID=singlePOI.poiID;
+        $scope.SinglepoiName=singlePOI.name;
+        $scope.SinglepoiCategoryName=singlePOI.CategoryName;
+        $scope.SinglepoiImage=singlePOI.poiImage; -->
+        <!-- <a href="#!login" class="button">sort</a> -->
     </div>
-    <div id="entryRegister">
+    <!-- <div id="entryRegister">
         <h4>favorites poi page</h4>
         <a href="#!favoritesPOI" class="button">favorites</a>
     </div>
     <div id="saveChanges">
         <h4>save changes</h4>
         <a href="#!favoritesPOI" class="button">save</a>
-    </div>
+    </div> -->
 </div>

@@ -135,3 +135,26 @@ a.button {
     right: -80px;
     bottom: -10px;   
   }
+
+  .allPOIs {
+    border-collapse: collapse;
+  }
+  
+  .allPOIs th {
+    border-bottom: 1px solid;
+  }
+  .allPOIs td, .allPOIs th {
+    border-left: 1px solid;
+    padding: 5px 10px;
+  }
+  .allPOIs td:first-child, .allPOIs th:first-child {
+    border-left: none;
+  }
+  
+  .sortorder:after {
+    content: '\25b2';   
+  }
+  .sortorder.reverse:after {
+    content: '\25bc';   
+  }
+  
