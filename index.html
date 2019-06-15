@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css.css" />
+    <link rel="stylesheet" type="text/css" href="css.css" />
 <!-- <link rel="stylesheet" type="text/css" href="about.css" /> -->
 </head>
 <body ng-app="myApp" background="PicBeer7/backgroundcolor.jpg">
@@ -14,10 +14,13 @@
 
     <!-- load controllers -->
     <!-- <script src="pages/about/aboutController.js"></script> -->
-    <!-- <script src="pages/poi/poiController.js"></script> -->
     <script src="/login/loginCtrl.js"></script>
     <script src="/explore/exploreCtrl.js"></script>
     <script src="/login/restorePasswordCtrl.js"></script>
+    <script src="/login/insertUsernameCtrl.js"></script>
+    <script src="/poi/singlePOIWindowCtrl.js"></script>
+    <script src="poi/poiController.js"></script>
+    <script src="poi/sortByRank.js"></script>
 
     <div id="menu" ng-init="currUser='guest'">
         <ul id="helloUser">
@@ -27,7 +30,7 @@
         <li class="menuBar"><a href="#!home" class="active">Home</a></li>
         <li class="menuBar"><a href="#!about" >About</a></li>
         <li class="menuBar"><a href="#!poi" >Points of interest</a></li>
-        <li class="menuBar"><a href="#!favPoi" >Favorite points of interest</a></li>
+        <li class="menuBar"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
         <li class="menuBar"><a href="#!restPass" >restore pass</a></li>
     </ul>
     </div>

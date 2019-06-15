@@ -2,9 +2,9 @@ let app = angular.module('myApp', ["ngRoute"]);
 // var currUser="guest";
 // config routes
 
-app.run(function ($rootScope) {
-    $rootScope.rUsername = "guest";
- });
+// app.run(function ($rootScope) {
+//     $rootScope.rUsername = "guest";
+//  });
 
 app.config(function($routeProvider)  {
     $routeProvider
@@ -34,15 +34,32 @@ app.config(function($routeProvider)  {
             // templateUrl: 'pages/about/about.html',
             // controller : 'aboutController as abtCtrl'
         })
-        // // poi
-        // .when('/poi', {
-        //     templateUrl: 'pages/poi/poi.html',
-        //     controller : 'poiController as poiCtrl'
-        // })
+        // poi
+        .when('/poi', {
+            templateUrl: 'poi/poi.html',
+            controller : 'poiController as poiCtrl'
+        })
+        .when('/sortByRank', {
+            templateUrl: 'poi/poi.html',
+            controller : 'sortByRank as sortByRank'
+        })
         .when('/restPass', {
             templateUrl: 'login/restorePassword.html',
             controller : 'restorePasswordCtrl as restorePasswordCtrl'
         })
+        .when('/insertUserName', {
+            templateUrl: 'login/insertUserName.html',
+            controller : 'insertUsernameCtrl as insertUsernameCtrl'
+        })
+        .when('/singlePOIWindow', {
+            templateUrl: 'poi/singlePOIWindow.html',
+            // controller : 'insertUsernameCtrl as insertUsernameCtrl'
+        })
+        .when('/favoritesPOI', {
+            templateUrl: 'poi/favoritesPOI.html',
+            // controller : 'insertUsernameCtrl as insertUsernameCtrl'
+        })
+        
         // other
         .otherwise({ redirectTo: '/home' });
 }); 

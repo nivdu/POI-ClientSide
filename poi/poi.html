@@ -1,5 +1,5 @@
 <!-- css -->
-<style>
+<!-- <style>
     img {
         height: 100px;
     }
@@ -7,9 +7,39 @@
 
 <h2>POI</h2>
 
-<!-- display all cities -->
+display all cities
 <p ng-repeat="(id, city) in poiCtrl.cities">
     City Name: <span ng-bind="city.name"></span><br>
     City State: <span ng-bind="city.state"></span><br>
     <img ng-src="{{ city.image }}">
-</p>
+</p> -->
+<head>
+    <link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<div>
+    <div id="entryLogin">
+        <h4>sort by rank</h4>
+        <a href="#!sortByRank" class="button">sort</a>
+    </div>
+    <div id="entryRegister">
+        <h4>favorites poi page</h4>
+        <a href="#!favoritesPOI" class="button">favorites</a>
+    </div>
+
+    <div ng-controller="poiController">
+        <div id="down0" ng-repeat="poi in allPOIs">
+            <div id="down1">
+                <a href="#!singlePOIWindow">
+                    {{poi.name}}
+                    <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="saveChanges">
+        <h4>save changes</h4>
+        <a href="#!favoritesPOI" class="button">save</a>
+    </div>
+</div>
+
