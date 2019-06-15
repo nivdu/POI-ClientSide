@@ -19,21 +19,36 @@ display all cities
 <div>
     <div id="entryLogin">
         <h4>sort by rank</h4>
-        <a href="#!sortByRank" class="button">sort</a>
+        <!-- <a href="#!poi" class="button">sort</a> -->
+        <button ng-click="sortByFunc()">sort by rank</button>
     </div>
-    <div id="entryRegister">
+    <!-- <div id="entryRegister">
         <h4>favorites poi page</h4>
         <a href="#!favoritesPOI" class="button">favorites</a>
-    </div>
-
+    </div> -->
+    <!-- <input ng-model="usernameTextBox" type="text">
+    <a href="#!restPass" class="button">restore password</a>
+    <button ng-click="getUserName(usernameTextBox)" class="button">restore password</button> -->
     <div ng-controller="poiController">
-        <div id="down0" ng-repeat="poi in allPOIs">
-            <div id="down1">
-                <a href="#!singlePOIWindow">
+        <div id="down0" ng-init="sortBy='name'">
+            <table id={{$index}}>
+                    <tr>
+                            <th>name</th>
+                            <th>category</th>
+                            <th>image</th>
+                          </tr>
+                          <tr ng-repeat="poi in allPOIs | orderBy:'+sortBy'">
+                                <!-- | orderBy:'+rank' -->
+                                <td><button ng-click="showSingle(poi)"> {{poi.name}}</button></td>
+                            
+                            <td>{{poi.CategoryName}}</td>
+                            <td><img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></td>
+                    </tr>
+                <!-- <button ng-click="showSingle(poi)">
                     {{poi.name}}
                     <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
-                </a>
-            </div>
+                </button> -->
+            </table>
         </div>
     </div>
 

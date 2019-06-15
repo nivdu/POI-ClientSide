@@ -8,7 +8,7 @@
 //         3: {name:"London", state: "England", image: "http://www.ukguide.co.il/Photos/England/London/British-Royal-Tour.jpg"}
 //     }
 // });
-angular.module("myApp").controller("poiController", function ($scope, $http) {
+angular.module("myApp").controller("poiController", function ($scope, $http, $window, $rootScope) {
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetAllPOI"
@@ -17,4 +17,20 @@ angular.module("myApp").controller("poiController", function ($scope, $http) {
     }, function myError(response){
         
     });
+
+    $scope.showSingle=function(singlePOI){
+        $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
+        $rootScope.SinglepoiDescription=singlePOI.poiDescription;
+        $rootScope.Singlepoirank=singlePOI.rank;
+        $rootScope.SinglepoiID=singlePOI.poiID;
+        $rootScope.SinglepoiName=singlePOI.name;
+        $rootScope.SinglepoiCategoryName=singlePOI.CategoryName;
+        $rootScope.SinglepoiImage=singlePOI.poiImage;
+        $window.location.href = "#!/singlePOIWindow";
+    }
+
+    $scope.sortByFunc=function(){
+        $scope.sortBy="name";
+    }
 });
+
