@@ -30,6 +30,7 @@ app.config(function($routeProvider)  {
         })
         .when('/logedIn', {
             templateUrl: 'logedIn/logedIn.html',
+            controller : 'logedInCtrl as logedInCtrl'
             // this is a template url
             // templateUrl: 'pages/about/about.html',
             // controller : 'aboutController as abtCtrl'
