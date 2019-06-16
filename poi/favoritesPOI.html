@@ -1,3 +1,37 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css.css">
 </head>
+<body>
+        <div ng-controller="poiController">
+            <div id="down0">
+                    <a href="#!/poi" class="button" ng-click="orderByField='name'; reverseSort = !reverseSort">
+                        name
+                    </a>
+                    <a href="#!/poi" class="button" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort">
+                        category
+                    </a>
+                    <a href="#!/poi" class="button" ng-click="orderByField='image'; reverseSort = !reverseSort">
+                        image
+                    </a>
+                <table id={{$index}}>
+                        <tr>
+                            <th>                         
+                                name
+                            </th>
+                            <th>
+                                category
+                            </th>
+                            <th>
+                                image
+                            </th>
+                        </tr>
+                        <tr ng-repeat="poi in allPOIs | orderBy:orderByField:reverseSort">
+                            <!-- | orderBy:'+rank' -->
+                            <td><button ng-click="showSingle(poi)"> {{poi.name}}</button></td>
+                            <td>{{poi.CategoryName}}</td>
+                            <td><img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+</body>

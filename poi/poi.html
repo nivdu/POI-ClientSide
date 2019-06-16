@@ -31,6 +31,11 @@ display all cities
     <button ng-click="getUserName(usernameTextBox)" class="button">restore password</button> -->
     <div ng-controller="poiController">
         <div id="down0" ng-init="sortBy='name'">
+            <p>Search point of interest's name:</p>
+            <input type="text" ng-model="searchPOI">
+            <button ng-click="searchPoi(searchPOI)">Search</button>
+            <br>
+            <br>
             <table id={{$index}}>
                     <tr>
                         <th>

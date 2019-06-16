@@ -1,0 +1,24 @@
+
+
+<div ng-controller="searchedPOICtrl">
+    <div>
+        <table id={{$index}}>
+                <tr>
+                    <th>                         
+                        name
+                    </th>
+                    <th>
+                        category
+                    </th>
+                    <th>
+                        image
+                    </th>
+                </tr>
+                <tr ng-repeat="poi in searchedPoi">                    
+                    <td><button ng-click="showSingle(poi)"> {{poi.name}}</button></td>
+                    <td>{{poi.CategoryName}}</td>
+                    <td><img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></td>
+                </tr>
+        </table>
+    </div>
+</div>
