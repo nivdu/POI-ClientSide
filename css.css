@@ -22,6 +22,17 @@ a.button {
     transition-duration: 3s;
   }
 
+  .tablePOI{
+    color: black;
+    font-size: 20px;
+    text-align: left;
+    float: left;
+  }
+
+  #MainDivView{
+
+  }
+
   a.hrefs{
     /* border: 2px solid #4CAF50;
     -webkit-appearance: button;
@@ -87,6 +98,33 @@ a.button {
   .menuBar a:hover {
     background-color: #111;
   } 
+/*  */
+#ulExpBar {
+  
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  /* bottom: ; */
+  /* top: 0px; */
+}
+
+.ExpBar {
+  float: left;
+}
+
+.ExpBar a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.ExpBar a:hover {
+  background-color: #111;
+} 
 
   #helloUser :hover {
     background-color: wheat;
@@ -158,3 +196,61 @@ a.button {
     content: '\25bc';   
   }
   
+  .star {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+.star:before {
+   content: "\2605";
+   position: absolute;
+   visibility:visible;
+}
+.star:checked:before {
+   content: "\2606";
+   position: absolute;
+}
+
+a.buttonFav {
+  /* background-color: gray;  */
+  /* border: black; */
+  color: darkred;
+  border: 3px solid darkred;
+  background-color: grey;
+  padding: 6px 12px;
+
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 10px;
+}
+
+a.buttonFav:hover {
+  background-color: red;
+  color: black;
+}
+
+a.buttonFav {
+  -webkit-transition-duration: 0.s; /* Safari */
+  transition-duration: 3s;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  /* background-color: #dddddd; */
+}
+
+.fa-star{
+  color: lightgoldenrodyellow;
+}

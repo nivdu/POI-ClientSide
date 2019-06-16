@@ -9,10 +9,10 @@
 //     }
 // });
 angular.module("myApp").controller("poiController", function ($scope, $http, $window, $rootScope) {
-    $scope.orderByField = 'name';
+    $scope.orderByField = 'CategoryName';
     $scope.reverseSort = false;
-    $scope.searchs = [];
-    
+    $rootScope.FavPOIs = [];
+
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetAllPOI"
@@ -42,5 +42,34 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         $rootScope.SinglepoiImage=singlePOI.poiImage;
         $window.location.href = "#!/singlePOIWindow";
     }
-});
 
+    $scope.addPOI = function(item)
+        {
+            $scope.booleani=true;
+            angular.forEach($rootScope.FavPOIs, function(value) {
+                    if(value.name==item.name)
+                        $scope.booleani=false;
+            })
+            if($scope.booleani==true){
+                $rootScope.FavPOIs.push(item);
+            }
+        }
+    
+        $scope.deletePOI = function(item)
+        {
+            $scope.booleani=true;
+            $scope.temp=[];
+            angular.forEach($rootScope.FavPOIs, function(value) {
+                    if(value.name!=item.name){
+                        $scope.temp.push(value);
+                    }
+            })
+            $rootScope.FavPOIs=$scope.temp;
+        }
+
+        $scope.isLoggedIn = function()
+        {
+            return false;
+        }
+        
+});
