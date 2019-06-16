@@ -58,7 +58,7 @@ app.config(function($routeProvider)  {
         })
         .when('/favoritesPOI', {
             templateUrl: 'poi/favoritesPOI.html',
-            // controller : 'insertUsernameCtrl as insertUsernameCtrl'
+            controller : 'favoritesPOICtrl as favoritesPOICtrl'
         })
         
         // other

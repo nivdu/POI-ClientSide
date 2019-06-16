@@ -21,17 +21,18 @@
     <script src="poi/poiController.js"></script>
     <script src="poi/sortByRank.js"></script>
     <script src="logedIn/logedInCtrl.js"></script>
+    <script src="poi/favoritesPOICtrl.js"></script>
 
-    <div id="menu" ng-init="currUser='guest'">
+    <div ng-init="currUser='guest'">
         <ul id="helloUser">
-        <li id="helloUser" style="font-size: 15px">hello {{currUser}}</li>
+            <li id="helloUser" style="font-size: 15px">hello {{currUser}}</li>
         </ul>
         <ul id="ulMenuBar">
-        <li class="menuBar"><a href="#!home" class="active">Home</a></li>
-        <li class="menuBar"><a href="#!about" >About</a></li>
-        <li class="menuBar"><a href="#!poi" >Points of interest</a></li>
-        <li class="menuBar"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
-    </ul>
+            <li class="menuBar"><a href="#!home">Home</a></li>
+            <li class="menuBar"><a href="#!about" >About</a></li>
+            <li class="menuBar"><a href="#!poi" >Points of interest</a></li>
+            <li class="menuBar"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
+        </ul>
     </div>
 
     <!-- <div id="entry">
@@ -46,33 +47,18 @@
         </div>
     </div> -->
 
-    <div ng-view></div>
+    <div id="MainDivView" ng-view></div>
 
     <div id="explore" ng-controller="exploreCtrl">
         <!-- use api and get 3 poi to show here -->
-        
-        <div id="down0" ng-repeat="poi in pois">
-                
-            <div id="down1" ng-show="$index===0">
-                <a href="#!home">
-                {{poi.name}}
-                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
-            </a>
-            </div>
-            <div id="down2" ng-show="$index===1">
-                    <a href="#!home">
-                {{poi.name}}
-                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
-                    </a>
-            </div>
-            <div id="down3" ng-show="$index===2">
-                    <a href="#!home">
-                {{poi.name}}
-                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
-                    </a>
-            </div>                    
-        </div>
-    
+        <!-- <div id="down0" ng-repeat="poi in pois"> -->
+            <ul id="ulExpBar" >
+            <!-- <div id="down1" ng-show="$index===0"> -->
+                <li ng-repeat="poi in pois" class="ExpBar">
+                    <a href="#!home">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></a>
+                </li>
+            </ul>
+        <!-- </div> -->
     </div>
 
 </body>
