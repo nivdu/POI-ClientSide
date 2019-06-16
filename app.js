@@ -56,13 +56,17 @@ app.config(function($routeProvider)  {
             templateUrl: 'poi/singlePOIWindow.html',
             controller : 'singlePOIWindowCtrl as singlePOIWindowCtrl'
         })
+        .when('/searchedPoi', {
+            templateUrl: 'poi/searchedPOI.html',
+            controller : 'searchedPOICtrl as searchedPOICtrl'
+        })
         .when('/favoritesPOI', {
             templateUrl: 'poi/favoritesPOI.html',
             controller : 'favoritesPOICtrl as favoritesPOICtrl'
         })
         
         // other
-        .otherwise({ redirectTo: '/home' });
+        // .otherwise({ redirectTo: '/home' });
 }); 
 
 // var token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibml2ZHVkIiwiaWF0IjoxNTYwNDU3NzY2LCJleHAiOjE1NjA1NDQxNjZ9.WrziwsOwN_WC38prHFLU3NjrcGfoqzQhjV0ZAMSIsGY';

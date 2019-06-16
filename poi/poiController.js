@@ -12,6 +12,7 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     $scope.orderByField = 'CategoryName';
     $scope.reverseSort = false;
     $rootScope.FavPOIs = [];
+
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetAllPOI"
@@ -20,6 +21,16 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     }, function myError(response){
         
     });
+
+    $scope.searchPoi = function(searchPOI){
+        angular.forEach($scope.allPOIs, function(value){
+            if(value.name.match(searchPOI)){
+                $rootScope.searchedPoi.push(value);
+            }
+        })
+        // $scope.allPOIs = $scope.searchs;
+        $window.location.href = "#!searchedPoi";
+    }
 
     $scope.showSingle=function(singlePOI){
         $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
