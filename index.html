@@ -23,7 +23,7 @@
     <script src="logedIn/logedInCtrl.js"></script>
     <script src="poi/favoritesPOICtrl.js"></script>
 
-    <div ng-init="currUser='guest'">
+    <div ng-init="currUser='guest'" ng-init="token='guest'">
         <ul id="helloUser">
             <li id="helloUser" style="font-size: 15px">hello {{currUser}}</li>
         </ul>
@@ -55,7 +55,7 @@
             <ul id="ulExpBar" >
             <!-- <div id="down1" ng-show="$index===0"> -->
                 <li ng-repeat="poi in pois" class="ExpBar">
-                    <a href="#!home">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></a>
+                    <bottun ng-click="showSingle(poi)">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></bottun>
                 </li>
             </ul>
         <!-- </div> -->

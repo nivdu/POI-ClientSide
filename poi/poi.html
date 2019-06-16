@@ -37,7 +37,6 @@ display all cities
         <br>
         <div ng-controller="poiController">
             <div id="down0" ng-init="sortBy='CategoryName'">
-                
                 <a href="#!/poi" class="button" ng-click="orderByField='rank'; reverseSort = !reverseSort">sort by rank</a>
                 <a href="#!/poi" class="button" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort">sort by category</a>
                 <br><br>
@@ -86,8 +85,8 @@ display all cities
                 </table>
             </div>
         </div>    
-        <div id="saveChanges" *ngIf="isLoggedIn()">
-            <h4>save changes</h4>
-            <a href="#!/favoritesPOI" class="button">apply</a>
+        <div id="saveChanges" ng-show="isLoggedIn();">
+                <h4>save changes</h4>
+               <a href="#!/favoritesPOI" class="button">apply</a>
         </div>
     </div>
