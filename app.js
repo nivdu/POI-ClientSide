@@ -56,6 +56,10 @@ app.config(function($routeProvider)  {
             templateUrl: 'poi/singlePOIWindow.html',
             controller : 'singlePOIWindowCtrl as singlePOIWindowCtrl'
         })
+        .when('/searchedPoi', {
+            templateUrl: 'poi/searchedPOI.html',
+            controller : 'searchedPOICtrl as searchedPOICtrl'
+        })
         .when('/favoritesPOI', {
             templateUrl: 'poi/favoritesPOI.html',
             // controller : 'insertUsernameCtrl as insertUsernameCtrl'

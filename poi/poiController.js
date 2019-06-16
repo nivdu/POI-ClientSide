@@ -11,6 +11,7 @@
 angular.module("myApp").controller("poiController", function ($scope, $http, $window, $rootScope) {
     $scope.orderByField = 'name';
     $scope.reverseSort = false;
+    $scope.searchs = [];
     
     $http({
         method : "GET",
@@ -21,6 +22,16 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         
     });
 
+    $scope.searchPoi = function(searchPOI){
+        angular.forEach($scope.allPOIs, function(value){
+            if(value.name.match(searchPOI)){
+                $rootScope.searchedPoi.push(value);
+            }
+        })
+        // $scope.allPOIs = $scope.searchs;
+        $window.location.href = "#!searchedPoi";
+    }
+
     $scope.showSingle=function(singlePOI){
         $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
         $rootScope.SinglepoiDescription=singlePOI.poiDescription;
@@ -30,10 +41,6 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         $rootScope.SinglepoiCategoryName=singlePOI.CategoryName;
         $rootScope.SinglepoiImage=singlePOI.poiImage;
         $window.location.href = "#!/singlePOIWindow";
-    }
-
-    $scope.sortByFunc=function(){
-        $scope.sortBy="category";
     }
 });
 
