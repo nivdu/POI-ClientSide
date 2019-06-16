@@ -11,7 +11,6 @@
 angular.module("myApp").controller("poiController", function ($scope, $http, $window, $rootScope) {
     $scope.orderByField = 'CategoryName';
     $scope.reverseSort = false;
-    $rootScope.FavPOIs = [];
 
     $http({
         method : "GET",

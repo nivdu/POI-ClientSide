@@ -1,4 +1,6 @@
 angular.module("myApp").controller("logedInCtrl", function ($window, $scope, $http, $rootScope) {
+    $rootScope.FavPOIs = [];
+    
     $http({
         method : "POST",
         url : "http://localhost:3000/private/poi/GetTwoPopularPOIByUserCategory",
