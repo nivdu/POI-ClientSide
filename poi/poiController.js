@@ -59,6 +59,7 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
 
     $scope.addPOI = function(item)
         {
+            if($scope.FavPOIs)
             $scope.booleani=true;
             angular.forEach($rootScope.FavPOIs, function(value) {
                     if(value.name==item.name)
@@ -83,7 +84,12 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
 
         $scope.isLoggedIn = function()
         {
-            return false;
+            if($rootScope.currUser!="guest"){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
 
 

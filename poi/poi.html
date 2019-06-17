@@ -95,8 +95,8 @@ display all cities
                 </table>
             </div>
         </div>    
-        <div id="saveChanges" *ngIf="isLoggedIn()">
-            <h4>save changes</h4>
-            <a href="#!/favoritesPOI" class="button">apply</a>
+        <div id="saveChanges" ng-show="isLoggedIn();">
+                <h4>save changes</h4>
+               <a href="#!/favoritesPOI" class="button">apply</a>
         </div>
     </div>
