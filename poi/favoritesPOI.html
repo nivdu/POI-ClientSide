@@ -2,8 +2,7 @@
     <link rel="stylesheet" type="text/css" href="css.css">
 </head>
 <div ng-controller="favoritesPOICtrl">
-        <div id="down0" ng-init="sortBy='CategoryName'">
-            
+        <div id="down0">
             <!-- <a href="#!/poi" class="button" ng-click="orderByField='rank'; reverseSort = !reverseSort">sort by rank</a>
             <a href="#!/poi" class="button" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort">sort by category</a> -->
             <br><br>
@@ -31,7 +30,7 @@
                                 <!-- </a> -->
                         </th>
                     </tr>
-                    <tr ng-repeat="currpoi in FavPOIs track by $index">
+                    <tr ng-repeat="currpoi in favors track by $index">
                         <!-- | orderBy:'+rank' -->
                         <td><button ng-click="showSingle(currpoi)"> {{currpoi.name}}</button></td>
                         <td>{{currpoi.CategoryName}}</td>

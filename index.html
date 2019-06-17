@@ -2,9 +2,8 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css.css" />
-<!-- <link rel="stylesheet" type="text/css" href="about.css" /> -->
 </head>
-<body ng-app="myApp" background="PicBeer7/backgroundcolor.jpg">
+<body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg">
     <!-- load angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
     <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
@@ -55,7 +54,7 @@
             <ul id="ulExpBar" >
             <!-- <div id="down1" ng-show="$index===0"> -->
                 <li ng-repeat="poi in pois" class="ExpBar">
-                    <bottun ng-click="showSingle(poi)">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></bottun>
+                    <bottun ng-click="showSingle(poi)" style="color:white">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></bottun>
                 </li>
             </ul>
         <!-- </div> -->

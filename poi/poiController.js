@@ -54,74 +54,74 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
                 $scope.updates.push(value);
             }
         })
+        //ifshow err
+        if($scope.updates.length == 0){
+            $scope.savingAlert = "There is no points of interest matching your search."
+        }
+        else{
+            $scope.savingAlert = "";
+        }
     }
     
 
     $scope.addPOI = function(item)
-        {
-            if($scope.FavPOIs)
-            $scope.booleani=true;
-            angular.forEach($rootScope.FavPOIs, function(value) {
-                    if(value.name==item.name)
-                        $scope.booleani=false;
-            })
-            if($scope.booleani==true){
-                $rootScope.FavPOIs.push(item);
-            }
+    {
+        $scope.booleani=true;
+        var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+        $scope.FavPOIs = arr?JSON.parse(arr):[];
+        angular.forEach($scope.FavPOIs, function(value) {
+                if(value.name==item.name)
+                    $scope.booleani=false;
+        })
+        if($scope.booleani==true){
+            $scope.FavPOIs.push(item);
+            $window.sessionStorage.removeItem("favoritesPOI"); 
+            $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.FavPOIs));
         }
-    
-        $scope.deletePOI = function(item)
-        {
-            $scope.booleani=true;
-            $scope.temp=[];
-            angular.forEach($rootScope.FavPOIs, function(value) {
-                    if(value.name!=item.name){
-                        $scope.temp.push(value);
-                    }
-            })
-            $rootScope.FavPOIs=$scope.temp;
-        }
+    }
 
-        $scope.isLoggedIn = function()
-        {
-            if($rootScope.currUser!="guest"){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-
-        $scope.updateResults = function () {
-            var tmp = {};
-            var cur = '1';
-
-
-            $scope.allPoi.forEach(item => {
-                let a = item.name, b = $scope.selection.toLowerCase(); //$('#selection option:selected').text().toString().toLowerCase()
-                let c = $scope.searchVal;
-                if ((item.category === $('#selection').val()|| b === "all")
-                    && a.toLowerCase().includes(c)
-                ){
-                    if (tmp[cur] === undefined){
-                        tmp[cur] = [];
-                        tmp[cur].push(item);
-                    }
-                    else{
-                        tmp[cur].push(item);
-                        if (tmp[cur].length === 4)
-                            cur += '1';
-                    }
+    $scope.deletePOI = function(item)
+    {
+        $scope.booleani=true;
+        $scope.temp=[];
+        angular.forEach($rootScope.FavPOIs, function(value) {
+                if(value.name!=item.name){
+                    $scope.temp.push(value);
                 }
-            });
-            $scope.results = tmp;
-            $scope.size = Object.keys(tmp).length;
-            console.log($scope.results)
-        };
+        })
+        $rootScope.FavPOIs=$scope.temp;
+    }
 
-        $scope.changeInitor = function () {
-            $scope.initor = false;
-        };
-        
+    $scope.isLoggedIn = function()
+    {
+        if($rootScope.currUser!="guest"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    $scope.SaveFavoritePoi = function(){
+        $scope.ids = [];
+        var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+        $scope.FavPOIs = arr?JSON.parse(arr):[];
+        angular.forEach($scope.FavPOIs, function(value) {
+            $scope.ids.push(value.poiID);
+        },
+
+        $http({
+            method : "POST",
+            url : "http://localhost:3000/private/poi/SavePOIForUser",
+            headers : {
+                'x-auth-token': $rootScope.token
+            },
+            data:{poiIDs: $scope.ids}
+        }).then(function success(response){
+            $scope.savingAlert = response.data;
+        }, function myError(response){
+            $scope.savingAlert = response.statusText;
+        })); 
+    }
+
 });
