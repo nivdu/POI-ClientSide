@@ -11,25 +11,29 @@
 angular.module("myApp").controller("poiController", function ($scope, $http, $window, $rootScope) {
     $scope.orderByField = 'CategoryName';
     $scope.reverseSort = false;
+    $scope.allPOIs = [];
+    $scope.updates = [];
+    $scope.categories = [];
 
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetAllPOI"
     }).then(function success(response){
         $scope.allPOIs=response.data;
+        $scope.updates = response.data;
     }, function myError(response){
-        
+        $scope.error = response.data;
     });
 
-    $scope.searchPoi = function(searchPOI){
-        angular.forEach($scope.allPOIs, function(value){
-            if(value.name.match(searchPOI)){
-                $rootScope.searchedPoi.push(value);
-            }
-        })
-        // $scope.allPOIs = $scope.searchs;
-        $window.location.href = "#!searchedPoi";
-    }
+    //add GetCategory To server
+    $http({
+        method : "GET",
+        url : "http://localhost:3000/categories/GetAllCategories"
+    }).then(function success(response){
+        $scope.categories=response.data;
+    }, function myError(response){
+        $scope.error = response.data;//todo change
+    });
 
     $scope.showSingle=function(singlePOI){
         $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
@@ -41,6 +45,17 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         $rootScope.SinglepoiImage=singlePOI.poiImage;
         $window.location.href = "#!/singlePOIWindow";
     }
+
+    $scope.updatePoi = function(){
+        $scope.updates = [];
+        angular.forEach($scope.allPOIs, function(value){
+            if(value.name.match($scope.searchPOI) && ( value.CategoryName.match($scope.selectCategory) 
+            || $scope.selectCategory.match("Show All"))){
+                $scope.updates.push(value);
+            }
+        })
+    }
+    
 
     $scope.addPOI = function(item)
         {
@@ -70,5 +85,37 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         {
             return false;
         }
+
+
+        $scope.updateResults = function () {
+            var tmp = {};
+            var cur = '1';
+
+
+            $scope.allPoi.forEach(item => {
+                let a = item.name, b = $scope.selection.toLowerCase(); //$('#selection option:selected').text().toString().toLowerCase()
+                let c = $scope.searchVal;
+                if ((item.category === $('#selection').val()|| b === "all")
+                    && a.toLowerCase().includes(c)
+                ){
+                    if (tmp[cur] === undefined){
+                        tmp[cur] = [];
+                        tmp[cur].push(item);
+                    }
+                    else{
+                        tmp[cur].push(item);
+                        if (tmp[cur].length === 4)
+                            cur += '1';
+                    }
+                }
+            });
+            $scope.results = tmp;
+            $scope.size = Object.keys(tmp).length;
+            console.log($scope.results)
+        };
+
+        $scope.changeInitor = function () {
+            $scope.initor = false;
+        };
         
 });
