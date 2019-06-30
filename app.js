@@ -70,19 +70,69 @@ app.config(function($routeProvider)  {
 }); 
 
 
-app.service("myService", function() {
-    this.FavPOIs = function(){
+
+
+// app.service("myService", function() {
+//     this.isLoggedIn = function(){
+//         if($rootScope.currUser!="guest"){
+//             return true;
+//         }
+//         else{
+//             return false;
+//         }
+//     }
+// });
+
+
+app.controller("mainCtrl", function($scope, $http, $rootScope, $window){
+    $rootScope.currUser = "guest";
+    $rootScope.token = "guest";
+
+    $http({
+        method : "GET",
+        url : "http://localhost:3000/poi/GetThreeRandomPopularPOI/-1"
+    }).then(function success(response){
+        $scope.pois=response.data;
+    }, function myError(response){
+        
+    });
+
+    $scope.showSingle=function(singlePOI){
         $http({
-            method : "POST",
-            url : "http://localhost:3000/private/poi/GetSavedPOIOfUser",
-            headers : {
-                'x-auth-token': $rootScope.token
-            }
+            method : "GET",
+            url : "http://localhost:3000/poi/GetPOIDetails/" + singlePOI.poiID
         }).then(function success(response){
-            return response.data;
+            $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
+            $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
+            $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+            $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
+            $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
+            $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+            $window.location.href = "#!/singlePOIWindow";
         }, function myError(response){
-            return response.data;
-        });
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+        });    
     }
-});
+
+    $scope.isLoggedIn = function()
+    {
+        if($rootScope.currUser!="guest"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    $scope.logout = function(){
+        $rootScope.currUser = "guest";
+        $rootScope.token = "guest";
+        $window.sessionStorage.removeItem("favoritesPOI")
+    }
+})
+
+
+
+
 

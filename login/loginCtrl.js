@@ -12,7 +12,7 @@
                     $rootScope.token=response.data;
                     $window.location.href = "#!/logedIn"
                 }, function myError(response) {
-                    $scope.myWelcome = response.statusText;//todo
+                    $scope.error= response.data;//todo
                 });
         }
     });

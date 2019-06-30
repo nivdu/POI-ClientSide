@@ -1,9 +1,10 @@
-angular.module("myApp").controller("singlePOIWindowCtrl", function ($scope, $http, $rootScope) {
+angular.module("myApp").controller("singlePOIWindowCtrl", function ($scope, $window, $http, $rootScope) {
     // navPOI.get('/GetPOIDetails/:poiID', function(req,res){
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetPOIDetails/" + $rootScope.SinglepoiID
     }).then(function success(response){
+        $scope.item = response.data.poiDetalis[0];
         $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
         $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
         $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
@@ -12,8 +13,59 @@ angular.module("myApp").controller("singlePOIWindowCtrl", function ($scope, $htt
         $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
         $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
     }, function myError(response){
-        
+        //todo - add error
     });
+
+    $scope.addPOI = function()
+    {
+        $scope.booleani=true;
+        var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+        $scope.FavPOIs = arr?JSON.parse(arr):[];
+        angular.forEach($scope.FavPOIs, function(value) {
+                if(value.name == $scope.item.name)
+                    $scope.booleani=false;
+        })
+        if($scope.booleani==true){
+            $scope.item.indexPoi = $scope.FavPOIs.length+1;
+            $scope.FavPOIs.push($scope.item);
+            $window.sessionStorage.removeItem("favoritesPOI"); 
+            $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.FavPOIs));
+        }
+    }
+
+    $scope.deletePOI = function(item)
+    {
+        $scope.booleani=true;
+        $scope.temp=[];
+        var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+        $scope.FavPOIs = arr?JSON.parse(arr):[];
+        angular.forEach($scope.FavPOIs, function(value) {
+                if(value.name!=$scope.item.name){
+                    $scope.temp.push(value);
+                }
+        })
+        var count = 1;
+        for (let index = 0; index < $scope.temp.length; index++) {
+            $scope.temp[index].indexPoi = count;
+            count++;
+        }
+        // $rootScope.FavPOIs=$scope.temp;
+        $window.sessionStorage.removeItem("favoritesPOI"); 
+        $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.temp));
+        $scope.favors = $scope.temp;
+    }
+
+    $scope.isLoggedIn = function()
+    {
+        if($rootScope.currUser!="guest"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 // This example adds a search box to a map, using the Google Place Autocomplete
 // feature. People can enter geographical searches. The search box will return a
 // pick list containing a mix of places and predicted search terms.

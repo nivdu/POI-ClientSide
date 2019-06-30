@@ -14,6 +14,9 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     $scope.allPOIs = [];
     $scope.updates = [];
     $scope.categories = [];
+    var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+    $scope.FavPOIs = arr?JSON.parse(arr):[];
+    $scope.numOfSaved = $scope.FavPOIs.length;
 
     $http({
         method : "GET",
@@ -74,9 +77,11 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
                     $scope.booleani=false;
         })
         if($scope.booleani==true){
+            item.indexPoi = $scope.FavPOIs.length+1;
             $scope.FavPOIs.push(item);
             $window.sessionStorage.removeItem("favoritesPOI"); 
             $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.FavPOIs));
+            $scope.numOfSaved = $scope.FavPOIs.length;
         }
     }
 
@@ -84,12 +89,17 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     {
         $scope.booleani=true;
         $scope.temp=[];
-        angular.forEach($rootScope.FavPOIs, function(value) {
+        var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+        $scope.FavPOIs = arr?JSON.parse(arr):[];
+        angular.forEach($scope.FavPOIs, function(value) {
                 if(value.name!=item.name){
                     $scope.temp.push(value);
                 }
         })
-        $rootScope.FavPOIs=$scope.temp;
+        // $rootScope.FavPOIs=$scope.temp;
+        $window.sessionStorage.removeItem("favoritesPOI"); 
+        $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.temp));
+        $scope.numOfSaved = $scope.FavPOIs.length;
     }
 
     $scope.isLoggedIn = function()
@@ -103,12 +113,20 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     }
 
     $scope.SaveFavoritePoi = function(){
-        $scope.ids = [];
         var arr = $window.sessionStorage.getItem("favoritesPOI"); 
         $scope.FavPOIs = arr?JSON.parse(arr):[];
-        angular.forEach($scope.FavPOIs, function(value) {
-            $scope.ids.push(value.poiID);
-        },
+        
+        var poiIDs = [];
+        
+        for(var i in $scope.FavPOIs) {    
+        
+            var item = $scope.FavPOIs[i];   
+            
+            poiIDs.push({ 
+                "poiId" : parseInt(item.poiID),
+                "indexPoi"  : parseInt(item.indexPoi)
+            });
+        }
 
         $http({
             method : "POST",
@@ -116,12 +134,12 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
             headers : {
                 'x-auth-token': $rootScope.token
             },
-            data:{poiIDs: $scope.ids}
+            data:{poiIDs}
         }).then(function success(response){
             $scope.savingAlert = response.data;
         }, function myError(response){
             $scope.savingAlert = response.statusText;
-        })); 
+        }); 
     }
 
 });

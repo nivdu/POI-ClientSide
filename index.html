@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css.css" />
 </head>
-<body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg">
+<body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg" ng-controller="mainCtrl">
     <!-- load angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
     <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
@@ -13,24 +13,25 @@
     <!-- load controllers -->
     <!-- <script src="pages/about/aboutController.js"></script> -->
     <script src="/login/loginCtrl.js"></script>
-    <script src="/explore/exploreCtrl.js"></script>
+    <!-- <script src="/mainCtrl.js"></script> -->
     <script src="/login/restorePasswordCtrl.js"></script>
     <script src="/login/insertUsernameCtrl.js"></script>
     <script src="/poi/singlePOIWindowCtrl.js"></script>
     <script src="poi/poiController.js"></script>
-    <script src="poi/sortByRank.js"></script>
     <script src="logedIn/logedInCtrl.js"></script>
     <script src="poi/favoritesPOICtrl.js"></script>
 
-    <div ng-init="currUser='guest'" ng-init="token='guest'">
+    <div>
         <ul id="helloUser">
             <li id="helloUser" style="font-size: 15px">hello {{currUser}}</li>
         </ul>
         <ul id="ulMenuBar">
-            <li class="menuBar"><a href="#!home">Home</a></li>
+            <li class="menuBar" ng-show="!isLoggedIn();"><a href="#!home">Home</a></li>
+            <li class="menuBar" ng-show="isLoggedIn();"><a href="#!logedIn">Home</a></li>
             <li class="menuBar"><a href="#!about" >About</a></li>
             <li class="menuBar"><a href="#!poi" >Points of interest</a></li>
-            <li class="menuBar"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
+            <li class="menuBar" ng-show="isLoggedIn();"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
+            <li class="menuBar" ng-show="isLoggedIn();"><a href="#!home" ng-click="logout()">Logout</a></li>
         </ul>
     </div>
 
@@ -48,7 +49,7 @@
 
     <div id="MainDivView" ng-view></div>
 
-    <div id="explore" ng-controller="exploreCtrl">
+    <div id="explore">
         <!-- use api and get 3 poi to show here -->
         <!-- <div id="down0" ng-repeat="poi in pois"> -->
             <ul id="ulExpBar" >

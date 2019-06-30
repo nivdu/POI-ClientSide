@@ -36,12 +36,13 @@ display all cities
         <br>
         <div ng-controller="poiController" ng-init="error=''">
             <div id="down0" ng-init="sortBy='CategoryName'">
-                <p>Search point of interest's name:</p>
+                <p ng-model="numOfSaved" ng-show="isLoggedIn();">You saved {{numOfSaved}} points of view until now.</p>
+                <h3>Search point of interest's name:</h3>
                 <input type="text" ng-model="searchPOI" ng-change="updatePoi()">
                 <!-- <button ng-click="searchPoi(searchPOI)">Search</button> -->
                 <br>
                 <br>
-                <p>Select Category:</p>
+                <h3>Select Category:</h3>
                 <select ng-init="selectCategory = 'Show All'"  ng-model="selectCategory" ng-change="updatePoi()">
                     <option>Show All</option>
                     <option ng-repeat="cat in categories">{{cat.CategoryName}}</option>
@@ -59,27 +60,27 @@ display all cities
                         <tr>
                             <th >
                                 <!-- <a href="#!/poi" class="tablePOI" ng-click="orderByField='name'; reverseSort = !reverseSort"> -->
-                                name
+                                Name
                                 <!-- </a> -->
                             </th>
                             <th >
                                 <!-- <a href="#!/poi" class="tablePOI" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort"> -->
-                                category
+                                Category
                                 <!-- </a> -->
                             </th>
                             <th >
                                 <!-- <a href="#!/poi" class="tablePOI" ng-click="orderByField='image'; reverseSort = !reverseSort"> -->
-                                image
+                                Image
                                 <!-- </a> -->
                             </th>
                             <th ng-show="isLoggedIn();" >
                                     <!-- <a href="#!/poi" class="tablePOI" ng-click="orderByField='image'; reverseSort = !reverseSort"> -->
-                                    add to favorites
+                                    Add to favorites
                                     <!-- </a> -->
                             </th>
                             <th ng-show="isLoggedIn();">
                                     <!-- <a href="#!/poi" class="tablePOI" ng-click="orderByField='image'; reverseSort = !reverseSort"> -->
-                                    delete from favorites
+                                    Delete from favorites
                                     <!-- </a> -->
                             </th>
                         </tr>

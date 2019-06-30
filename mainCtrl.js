@@ -1,5 +1,8 @@
 // explore controller
-angular.module("myApp").controller("exploreCtrl", function ($scope, $rootScope, $window, $http) {
+angular.module("myApp").controller("exploreCtrl", function ($scope, $rootScope, $window, $http, myService) {
+    
+    $scope.logged = myService.isLoggedIn
+    
     $http({
         method : "GET",
         url : "http://localhost:3000/poi/GetThreeRandomPopularPOI/-1"

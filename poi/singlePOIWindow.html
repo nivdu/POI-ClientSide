@@ -3,6 +3,11 @@
 </head>
 <div id="entry">
     <div id="entryLogin">
+
+        <td ng-show="isLoggedIn();"><a href="#!/singlePOIWindow"  class="fa fa-star" ng-click="addPOI(poi)">add to favorites</a></td>
+        <br>
+        <td ng-show="isLoggedIn();"><a href="#!/singlePOIWindow" class="fa fa-star" ng-click="deletePOI(poi)">delete from favorites</a></td>
+        <br>
         <p>Number of views: {{SinglepoinumberOfViews}}</p>
         <p>Description: {{SinglepoiDescription}}</p>
         <p>Rank: {{Singlepoirank}}</p>
