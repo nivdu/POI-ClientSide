@@ -62,9 +62,6 @@ angular.module("myApp").controller("favoritesPOICtrl", function ($scope,$filter,
             $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.temp));
             $scope.favors = $scope.temp;
         }
-        else{
-            //todo - popup from myservice
-        }
     }
 
     $scope.poiUpIndexDown = function(currpoi){
@@ -90,9 +87,25 @@ angular.module("myApp").controller("favoritesPOICtrl", function ($scope,$filter,
             $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.temp));
             $scope.favors = $scope.temp;
         }
-        else{
-            //todo - popup from myservice
-        }
+    }
+
+    $scope.passPoiIDReview = function (event) {
+        $scope.poiIDOfReview = event.target.id;
+    }
+
+    $scope.sendReview = function(){
+        $http({
+            method : "POST",
+            url : "http://localhost:3000/private/poi/SaveReviewOfPOI",
+            headers : {
+                'x-auth-token': $rootScope.token
+            },
+            data:{ poiID: $scope.poiIDOfReview, rank: $scope.selectRank, description: $scope.reviewContent}
+        }).then(function success(response){
+            $scope.savingAlert = response.data;
+        }, function myError(response){
+            $scope.savingAlert = response.data;
+        }); 
     }
 
 

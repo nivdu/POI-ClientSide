@@ -8,7 +8,6 @@ let app = angular.module('myApp', ["ngRoute"]);
 
 app.config(function($routeProvider)  {
     $routeProvider
-        // homepage
         .when('/home', {
             templateUrl: 'home/home.html',
         })
@@ -18,24 +17,15 @@ app.config(function($routeProvider)  {
         })
         .when('/register', {
             templateUrl: 'register/register.html',
-            // this is a template url
-            // templateUrl: 'pages/about/about.html',
-            // controller : 'aboutController as abtCtrl'
+            controller: 'registerCtrl as registerCtrl'
         })
-        // about
         .when('/about', {
-            // this is a template url
-            templateUrl: '  about/about.html',
-            // controller : 'aboutController as abtCtrl'
+            templateUrl: '  about/about.html'
         })
         .when('/logedIn', {
             templateUrl: 'logedIn/logedIn.html',
             controller : 'logedInCtrl as logedInCtrl'
-            // this is a template url
-            // templateUrl: 'pages/about/about.html',
-            // controller : 'aboutController as abtCtrl'
         })
-        // poi
         .when('/poi', {
             templateUrl: 'poi/poi.html',
             controller : 'poiController as poiCtrl'
@@ -66,7 +56,7 @@ app.config(function($routeProvider)  {
         })
         
         // other
-         .otherwise({ redirectTo: '/home' });
+        .otherwise({ redirectTo: '/home' });
 }); 
 
 
@@ -85,8 +75,13 @@ app.config(function($routeProvider)  {
 
 
 app.controller("mainCtrl", function($scope, $http, $rootScope, $window){
+
     $rootScope.currUser = "guest";
     $rootScope.token = "guest";
+
+    $scope.getUsername = function(){
+        return $window.sessionStorage.getItem("currUser");
+    }
 
     $http({
         method : "GET",

@@ -6,11 +6,42 @@
             <!-- <a href="#!/poi" class="button" ng-click="orderByField='rank'; reverseSort = !reverseSort">sort by rank</a>
             <a href="#!/poi" class="button" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort">sort by category</a> -->
             <br><br>
+            <div class="container">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Send a review</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Choose a rank beteen 1 to 5:</p>
+                        <select ng-init="selectRank = '1'"  ng-model="selectRank">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                        <br>
+                        <p>Write a review about the point of interset</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+            </div>
             <a href="#!/favoritesPOI" class="button" ng-click="orderByField='rank'; reverseSort = !reverseSort">sort by rank</a>
             <a href="#!/favoritesPOI" class="button" ng-click="orderByField='CategoryName'; reverseSort = !reverseSort">sort by category</a>    
             <button ng-click="SaveFavoritePoi()" ng-init="orderByField='indexPoi'">save changes</button>
-            <p>{{savingAlert}}</p>
             <br><br>
+            <p>{{savingAlert}}</p>
             <br><br>
             <table>
                     <tr>
@@ -37,6 +68,9 @@
                                 Delete from favorites
                                 <!-- </a> -->
                         </th>
+                        <th ng-show="isLoggedIn();">
+                          Review
+                        </th>
                     </tr>
                     <tr ng-repeat="currpoi in favors | orderBy:orderByField:reverseSort">
                         <td>
@@ -49,7 +83,39 @@
                         <td>{{currpoi.CategoryName}}</td>
                         <td><img ng-src="{{currpoi.poiImage}}" style="width: 160px; height: 120px;"></td>
                         <td ng-show="isLoggedIn();"><a href="#!/favoritesPOI" class="fa fa-star" ng-click="deletePOI(currpoi)">delete from favorites</a></td>
-                        <!-- <td><input class="star" type="checkbox" title="bookmark page" id={{$index}} checked></td> -->
+                        <td ng-show="isLoggedIn();"><button type="button" class="btn btn-info btn-lg" id="{{currpoi.poiID}}" ng-click="passPoiIDReview($event)" data-toggle="modal" data-target="#mymodal">Send review</button></td>
+                        <div class="container">
+                          <!-- Modal -->
+                          <div class="modal fade" id="mymodal" role="dialog">
+                            <div class="modal-dialog">
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Send a review</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Choose a rank beteen 1 to 5:</p>
+                                  <select ng-init="selectRank = '5'"  ng-model="selectRank">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                  <br>
+                                  <p>Write a review about {{currpoi.name}}</p>
+                                  <textarea ng-init="reviewContent=''" ng-model="reviewContent" rows="4" cols="50"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" ng-click="sendReview()" class="btn btn-default" data-dismiss="modal">Send</button>
+                                </div>
+                              </div>
+                              
+                            </div>
+                          </div>
+                          
+                      </div>
                     </tr>
                 <!-- <button ng-click="showSingle(poi)">
                     {{poi.name}}

@@ -2,24 +2,30 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    
 </head>
 <body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg" ng-controller="mainCtrl">
     <!-- load angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
     <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
+    
     <!-- load app -->
     <script src="app.js"></script>
 
+    <!-- load bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <!-- load controllers -->
-    <!-- <script src="pages/about/aboutController.js"></script> -->
     <script src="/login/loginCtrl.js"></script>
-    <!-- <script src="/mainCtrl.js"></script> -->
     <script src="/login/restorePasswordCtrl.js"></script>
     <script src="/login/insertUsernameCtrl.js"></script>
     <script src="/poi/singlePOIWindowCtrl.js"></script>
     <script src="poi/poiController.js"></script>
     <script src="logedIn/logedInCtrl.js"></script>
     <script src="poi/favoritesPOICtrl.js"></script>
+    <script src="register/registerCtrl.js"></script>
 
     <div>
         <ul id="helloUser">

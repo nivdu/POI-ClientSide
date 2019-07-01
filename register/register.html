@@ -3,13 +3,76 @@
 </head>
 
 <div>
-    <form name="loginForm" ng-submit="submit()" novalidate>
-        <input type="text" name="uname" ng-model="uname" required ng-minlength="4">
-        <span ng-show="loginForm.uname.$error.required">This is required! </span>
-        <span ng-show="loginForm.uname.$error.minlength">Minimum length is 4 </span>
-        <span ng-show="loginForm.uname.$invalid">Invalid field</span><br><br>
-        <input ng-disabled="loginForm.$invalid" type="submit" id="submit" value="Submit">
+    <form name="registerForm" ng-submit="register()" novalidate>
+        <label>Username: </label>
+        <input type="text" name="usernameReg" ng-model="usernameReg" required ng-minlength="3" ng-maxlength="8" ng-pattern="/^[a-zA-Z]*$/">
+        <span ng-show="registerForm.usernameReg.$error.required">This field is required! </span>
+        <span ng-show="registerForm.usernameReg.$error.minlength">Minimum length is 3 </span>
+        <span ng-show="registerForm.usernameReg.$error.maxlength">Maximum length is 8 </span>
+        <span ng-show="registerForm.usernameReg.$error.pattern">Please enter only letters</span>
+
+        <div class="form-group">
+        <label>Password: </label>
+        <input type="text" name="passwordReg" ng-model="passwordReg" required ng-minlength="5" ng-maxlength="10" ng-pattern="/^[a-zA-Z0-9]*$/">
+        <span ng-show="registerForm.passwordReg.$error.required">This field is required! </span>
+        <span ng-show="registerForm.passwordReg.$error.minlength">Minimum length is 5 </span>
+        <span ng-show="registerForm.passwordReg.$error.maxlength">Maximum length is 10 </span>
+        <span ng-show="registerForm.passwordReg.$error.pattern">Please enter only letters and digits</span>
+        </div>
+        
+        <div class="form-group">
+        <label>First Name: </label>
+        <input type="text" name="firstNameReg" ng-model="firstNameReg" required>
+        <span ng-show="registerForm.firstNameReg.$error.required">This field is required! </span>
+        </div>
+
+        <label>Last Name: </label>
+        <input type="text" name="lastNameReg" ng-model="lastNameReg" required>
+        <span ng-show="registerForm.lastNameReg.$error.required">This field is required! </span>
+        <br>
+
+        <label>City: </label>
+        <input type="text" name="cityReg" ng-model="cityReg" required>
+        <span ng-show="registerForm.cityReg.$error.required">This field is required! </span>
+        <br>
+
+        <label>Country: </label>
+        <select name="selectedCountry" ng-model="selectedCountry" ng-init="selectedCountry=''" required>
+        <option ng-repeat="country in countries">{{country}}</option>
+        </select>
+        <span ng-show="registerForm.selectedCountry.$error.required">This field is required! </span>
+        <br>
+
+        <label>Email: </label>
+        <input type="email" name="emailReg" ng-model="emailReg" required ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/">
+        <span ng-show="registerForm.emailReg.$error.required">This field is required! </span>
+        <span ng-show="registerForm.emailReg.$error.pattern">Please enter a valid email</span>
+        <br>
+
+        <label>Choose at least two categories:</label>
+        <select name="selectedCategories" ng-model="selectedCategories" multiple ng-options=" category.CategoryName for category in categories" required></select>
+        <span ng-show="registerForm.selectedCategories.$error.required">This field is required! </span>
+        <br>
+
+        <label>First Question: {{questions[0].questDesc}}</label>
+        <br>
+
+        <label>Answer for first question:</label>
+        <input type="text" name="firstAnsReg" ng-model="firstAnsReg" required>
+        <span ng-show="registerForm.firstAnsReg.$error.required">This field is required! </span>
+        <br>
+
+        <label>Second Question: {{questions[1].questDesc}}</label>
+        <br>
+
+        <label>Answer for second question:</label>
+        <input type="text" name="secondAnsReg" ng-model="secondAnsReg" required>
+        <span ng-show="registerForm.secondAnsReg.$error.required">This field is required! </span>
+        <br>
+
+        <br>
+        <input ng-disabled="registerForm.$invalid" type="submit" id="submit" value="Submit">
     </form>
 
-    <p>{{ answer }}</p>
+    <p>{{ error }}</p>
 </div>  
