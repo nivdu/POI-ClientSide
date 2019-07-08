@@ -12,6 +12,15 @@ angular.module("myApp").controller("singlePOIWindowCtrl", function ($scope, $win
         $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
         $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
         $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+        if(response.data.poiLastReviews.length>=1){
+            $rootScope.SinglepoiReview1 = response.data.poiLastReviews[0];
+            $scope.review1 = true;
+        }
+        if(response.data.poiLastReviews.length>=2){
+            $scope.review2 = true;
+            $rootScope.SinglepoiReview2 = response.data.poiLastReviews[1];
+        }
+            
     }, function myError(response){
         //todo - add error
     });

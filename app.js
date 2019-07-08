@@ -62,19 +62,12 @@ app.config(function($routeProvider)  {
 
 
 
-// app.service("myService", function() {
-//     this.isLoggedIn = function(){
-//         if($rootScope.currUser!="guest"){
-//             return true;
-//         }
-//         else{
-//             return false;
-//         }
-//     }
-// });
+app.service("myService", function() {
+    this.poiDetails = {};
+});
 
 
-app.controller("mainCtrl", function($scope, $http, $rootScope, $window){
+app.controller("mainCtrl", function($scope, $http, $rootScope, $window, myService){
 
     $rootScope.currUser = "guest";
     $rootScope.token = "guest";
@@ -92,10 +85,11 @@ app.controller("mainCtrl", function($scope, $http, $rootScope, $window){
         
     });
 
-    $scope.showSingle=function(singlePOI){
+
+    $scope.showSingle=function(event){
         $http({
             method : "GET",
-            url : "http://localhost:3000/poi/GetPOIDetails/" + singlePOI.poiID
+            url : "http://localhost:3000/poi/GetPOIDetails/" + event.target.id
         }).then(function success(response){
             $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
             $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
@@ -104,11 +98,35 @@ app.controller("mainCtrl", function($scope, $http, $rootScope, $window){
             $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
             $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
             $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
-            $window.location.href = "#!/singlePOIWindow";
+            // $window.location.href = "#!/singlePOIWindow";
         }, function myError(response){
             $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
         });    
     }
+
+
+    // $scope.showSingle = function (event) {
+    //     myService.poiDetails = event.target.id;
+    // };
+
+
+    // $scope.showSingle=function(singlePOI){
+    //     $http({
+    //         method : "GET",
+    //         url : "http://localhost:3000/poi/GetPOIDetails/" + singlePOI.poiID
+    //     }).then(function success(response){
+    //         $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
+    //         $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
+    //         $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
+    //         $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+    //         $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
+    //         $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
+    //         $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+    //         $window.location.href = "#!/singlePOIWindow";
+    //     }, function myError(response){
+    //         $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+    //     });    
+    // }
 
     $scope.isLoggedIn = function()
     {

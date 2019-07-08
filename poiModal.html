@@ -1,0 +1,31 @@
+
+<!-- Modal -->
+<div class="modal fade" id="poiDetailsModal" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Send a review</h4>
+        </div>
+        <div class="modal-body">
+        <p>Choose a rank beteen 1 to 5:</p>
+        <select ng-init="selectRank = '5'"  ng-model="selectRank">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        <br>
+        <p>Write a review about {{currpoi.name}}</p>
+        <textarea ng-init="reviewContent=''" ng-model="reviewContent" rows="4" cols="50"></textarea>
+        </div>
+        <div class="modal-footer">
+        <!-- <button type="button" ng-click="sendReview()" class="btn btn-default" data-dismiss="modal">Send</button> -->
+        </div>
+    </div>
+    
+    </div>
+</div>
+        
