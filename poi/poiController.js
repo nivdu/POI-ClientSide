@@ -38,15 +38,37 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         $scope.error = response.data;//todo change
     });
 
-    $scope.showSingle=function(singlePOI){
-        $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
-        $rootScope.SinglepoiDescription=singlePOI.poiDescription;
-        $rootScope.Singlepoirank=singlePOI.rank;
-        $rootScope.SinglepoiID=singlePOI.poiID;
-        $rootScope.SinglepoiName=singlePOI.name;
-        $rootScope.SinglepoiCategoryName=singlePOI.CategoryName;
-        $rootScope.SinglepoiImage=singlePOI.poiImage;
-        $window.location.href = "#!/singlePOIWindow";
+    $scope.showSingle=function(event){
+        $http({
+            method : "GET",
+            url : "http://localhost:3000/poi/GetPOIDetails/" + event.target.id
+        }).then(function success(response){
+            $rootScope.Singlepoi=response.data.poiDetalis[0];
+            $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
+            $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
+            $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+            $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
+            $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
+            $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+            if(response.data.poiLastReviews.length>=1){
+                $rootScope.SinglepoiReview1 = response.data.poiLastReviews[0];
+                $scope.review1 = true;
+            }
+            else{
+                $scope.review1 = false;
+            }
+            if(response.data.poiLastReviews.length>=2){
+                $scope.review2 = true;
+                $rootScope.SinglepoiReview2 = response.data.poiLastReviews[1];
+            }
+            else{
+                $scope.review2 = false;
+            }
+            // $window.location.href = "#!/singlePOIWindow";
+        }, function myError(response){
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+        });    
     }
 
     $scope.updatePoi = function(){

@@ -98,6 +98,20 @@ app.controller("mainCtrl", function($scope, $http, $rootScope, $window, myServic
             $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
             $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
             $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+            if(response.data.poiLastReviews.length>=1){
+                $rootScope.SinglepoiReview1 = response.data.poiLastReviews[0];
+                $scope.review1 = true;
+            }
+            else{
+                $scope.review1 = false;
+            }
+            if(response.data.poiLastReviews.length>=2){
+                $scope.review2 = true;
+                $rootScope.SinglepoiReview2 = response.data.poiLastReviews[1];
+            }
+            else{
+                $scope.review2 = false;
+            }
             // $window.location.href = "#!/singlePOIWindow";
         }, function myError(response){
             $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;

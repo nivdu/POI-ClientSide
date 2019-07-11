@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg" ng-controller="mainCtrl">
     <!-- load angular -->
@@ -60,13 +60,9 @@
     <div class="modal-content">
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Send a review</h4>
+        <h4 class="modal-title">Point of interest's details</h4>
         </div>
         <div class="modal-body">
-                <td><a href="#!/singlePOIWindow" ng-show="isLoggedIn();" class="fa fa-star" ng-click="addPOI(poi)">add to favorites</a></td>
-                <br>
-                <td><a href="#!/singlePOIWindow"  ng-show="isLoggedIn();" class="fa fa-star" ng-click="deletePOI(poi)">delete from favorites</a></td>
-                <br>
                 <p>Number of views: {{SinglepoinumberOfViews}}</p>
                 <p>Description: {{SinglepoiDescription}}</p>
                 <p>Rank: {{Singlepoirank}}</p>
@@ -86,12 +82,15 @@
                         {{SinglepoiReview2.date}}
                     </p>
                 <img ng-src="{{SinglepoiImage}}" style="width: 160px; height: 160px;">
+                <td><a href="#!/singlePOIWindow" ng-show="isLoggedIn();" class="fa fa-star" ng-click="addPOI(poi)">add to favorites</a></td>
+                <br>
+                <td><a href="#!/singlePOIWindow"  ng-show="isLoggedIn();" class="fa fa-star" ng-click="deletePOI(poi)">delete from favorites</a></td>
+                <br>
         </div>
         <div class="modal-footer">
         <!-- <button type="button" ng-click="sendReview()" class="btn btn-default" data-dismiss="modal">Send</button> -->
         </div>
     </div>
-    
     </div>
 </div>
 
@@ -102,7 +101,7 @@
             <!-- <div id="down1" ng-show="$index===0"> -->
                 <li ng-repeat="poi in pois" class="ExpBar">
                     <!-- <bottun ng-click="showSingle(poi)" style="color:white">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></bottun> -->
-                    <button type="button" style="color:white" id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal">
+                    <button style="color:white; background-color: #333;" id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal">
                         {{poi.name}} 
                         <img id="{{poi.poiID}}" ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
                     </button>
