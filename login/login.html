@@ -4,9 +4,9 @@
 <script src="app.js"></script>
 <h1>login page</h1>
 <div id="loginDiv">
-        <div id="usernameLogin">
+        <div id="usernameLogin" ng-init="usernameTextBox='nivdud'; passwordTextBox='1234niv' ">
             <h4>username:</h4>
-            <input ng-model="usernameTextBox" type="text">
+            <input ng-model="usernameTextBox" type="text" >
         </div>
         <div id="passwordLogin">
             <h4>password:</h4>
@@ -15,9 +15,9 @@
         <div id="acceptLoginDiv">
             <br>
             <button ng-click="checkDetails(usernameTextBox,passwordTextBox)" class="button">submit</button>
+            {{error}}
             <br>
             <br>
             <a href="#!insertUserName" class="button">restore password</a>
-            <!-- <button id="acceptLoginButton" onclick="">send</button> -->
         </div>
 </div>

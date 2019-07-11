@@ -3,12 +3,29 @@
 </head>
 <div id="entry">
     <div id="entryLogin">
+
+        <td><a href="#!/singlePOIWindow" ng-show="isLoggedIn();" class="fa fa-star" ng-click="addPOI(poi)">add to favorites</a></td>
+        <br>
+        <td><a href="#!/singlePOIWindow"  ng-show="isLoggedIn();" class="fa fa-star" ng-click="deletePOI(poi)">delete from favorites</a></td>
+        <br>
         <p>Number of views: {{SinglepoinumberOfViews}}</p>
         <p>Description: {{SinglepoiDescription}}</p>
         <p>Rank: {{Singlepoirank}}</p>
         <p>ID: {{SinglepoiID}}</p>
         <p>Name: {{SinglepoiName}}</p>
         <p>Category: {{SinglepoiCategoryName}}</p>
+        <p ng-show="review1">First Review:
+            <br>
+            {{SinglepoiReview1.description}} 
+            <br>
+            {{SinglepoiReview1.date}}
+        </p>
+        <p ng-show="review2">Second Review:
+                <br>
+                {{SinglepoiReview2.description}} 
+                <br>
+                {{SinglepoiReview2.date}}
+            </p>
         <img ng-src="{{SinglepoiImage}}" style="width: 160px; height: 160px;">
         <!-- $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
         $scope.SinglepoiDescription=singlePOI.poiDescription;

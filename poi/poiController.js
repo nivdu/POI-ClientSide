@@ -14,6 +14,9 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     $scope.allPOIs = [];
     $scope.updates = [];
     $scope.categories = [];
+    var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+    $scope.FavPOIs = arr?JSON.parse(arr):[];
+    $scope.numOfSaved = $scope.FavPOIs.length;
 
     $http({
         method : "GET",
@@ -35,15 +38,37 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
         $scope.error = response.data;//todo change
     });
 
-    $scope.showSingle=function(singlePOI){
-        $rootScope.SinglepoinumberOfViews=singlePOI.numberOfViews;
-        $rootScope.SinglepoiDescription=singlePOI.poiDescription;
-        $rootScope.Singlepoirank=singlePOI.rank;
-        $rootScope.SinglepoiID=singlePOI.poiID;
-        $rootScope.SinglepoiName=singlePOI.name;
-        $rootScope.SinglepoiCategoryName=singlePOI.CategoryName;
-        $rootScope.SinglepoiImage=singlePOI.poiImage;
-        $window.location.href = "#!/singlePOIWindow";
+    $scope.showSingle=function(event){
+        $http({
+            method : "GET",
+            url : "http://localhost:3000/poi/GetPOIDetails/" + event.target.id
+        }).then(function success(response){
+            $rootScope.Singlepoi=response.data.poiDetalis[0];
+            $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
+            $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
+            $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+            $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
+            $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
+            $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+            if(response.data.poiLastReviews.length>=1){
+                $rootScope.SinglepoiReview1 = response.data.poiLastReviews[0];
+                $scope.review1 = true;
+            }
+            else{
+                $scope.review1 = false;
+            }
+            if(response.data.poiLastReviews.length>=2){
+                $scope.review2 = true;
+                $rootScope.SinglepoiReview2 = response.data.poiLastReviews[1];
+            }
+            else{
+                $scope.review2 = false;
+            }
+            // $window.location.href = "#!/singlePOIWindow";
+        }, function myError(response){
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+        });    
     }
 
     $scope.updatePoi = function(){
@@ -74,9 +99,11 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
                     $scope.booleani=false;
         })
         if($scope.booleani==true){
+            item.indexPoi = $scope.FavPOIs.length+1;
             $scope.FavPOIs.push(item);
             $window.sessionStorage.removeItem("favoritesPOI"); 
             $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.FavPOIs));
+            $scope.numOfSaved = $scope.FavPOIs.length;
         }
     }
 
@@ -84,12 +111,17 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     {
         $scope.booleani=true;
         $scope.temp=[];
-        angular.forEach($rootScope.FavPOIs, function(value) {
+        var arr = $window.sessionStorage.getItem("favoritesPOI"); 
+        $scope.FavPOIs = arr?JSON.parse(arr):[];
+        angular.forEach($scope.FavPOIs, function(value) {
                 if(value.name!=item.name){
                     $scope.temp.push(value);
                 }
         })
-        $rootScope.FavPOIs=$scope.temp;
+        // $rootScope.FavPOIs=$scope.temp;
+        $window.sessionStorage.removeItem("favoritesPOI"); 
+        $window.sessionStorage.setItem("favoritesPOI",JSON.stringify($scope.temp));
+        $scope.numOfSaved = $scope.FavPOIs.length;
     }
 
     $scope.isLoggedIn = function()
@@ -103,12 +135,20 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
     }
 
     $scope.SaveFavoritePoi = function(){
-        $scope.ids = [];
         var arr = $window.sessionStorage.getItem("favoritesPOI"); 
         $scope.FavPOIs = arr?JSON.parse(arr):[];
-        angular.forEach($scope.FavPOIs, function(value) {
-            $scope.ids.push(value.poiID);
-        },
+        
+        var poiIDs = [];
+        
+        for(var i in $scope.FavPOIs) {    
+        
+            var item = $scope.FavPOIs[i];   
+            
+            poiIDs.push({ 
+                "poiId" : parseInt(item.poiID),
+                "indexPoi"  : parseInt(item.indexPoi)
+            });
+        }
 
         $http({
             method : "POST",
@@ -116,12 +156,12 @@ angular.module("myApp").controller("poiController", function ($scope, $http, $wi
             headers : {
                 'x-auth-token': $rootScope.token
             },
-            data:{poiIDs: $scope.ids}
+            data:{poiIDs}
         }).then(function success(response){
             $scope.savingAlert = response.data;
         }, function myError(response){
             $scope.savingAlert = response.statusText;
-        })); 
+        }); 
     }
 
 });

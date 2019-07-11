@@ -2,35 +2,42 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg">
+<body ng-app="myApp" background="/about/PicBeer7/backgroundcolor.jpg" ng-controller="mainCtrl">
     <!-- load angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
     <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
+    
     <!-- load app -->
     <script src="app.js"></script>
 
+    <!-- load bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <!-- load controllers -->
-    <!-- <script src="pages/about/aboutController.js"></script> -->
     <script src="/login/loginCtrl.js"></script>
-    <script src="/explore/exploreCtrl.js"></script>
     <script src="/login/restorePasswordCtrl.js"></script>
     <script src="/login/insertUsernameCtrl.js"></script>
     <script src="/poi/singlePOIWindowCtrl.js"></script>
     <script src="poi/poiController.js"></script>
-    <script src="poi/sortByRank.js"></script>
     <script src="logedIn/logedInCtrl.js"></script>
     <script src="poi/favoritesPOICtrl.js"></script>
+    <script src="register/registerCtrl.js"></script>
 
-    <div ng-init="currUser='guest'" ng-init="token='guest'">
+    <div>
         <ul id="helloUser">
             <li id="helloUser" style="font-size: 15px">hello {{currUser}}</li>
         </ul>
         <ul id="ulMenuBar">
-            <li class="menuBar"><a href="#!home">Home</a></li>
+            <li class="menuBar" ng-show="!isLoggedIn();"><a href="#!home">Home</a></li>
+            <li class="menuBar" ng-show="isLoggedIn();"><a href="#!logedIn">Home</a></li>
             <li class="menuBar"><a href="#!about" >About</a></li>
             <li class="menuBar"><a href="#!poi" >Points of interest</a></li>
-            <li class="menuBar"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
+            <li class="menuBar" ng-show="isLoggedIn();"><a href="#!favoritesPOI" >Favorite points of interest</a></li>
+            <li class="menuBar" ng-show="isLoggedIn();"><a href="#!home" ng-click="logout()">Logout</a></li>
         </ul>
     </div>
 
@@ -47,14 +54,57 @@
     </div> -->
 
     <div id="MainDivView" ng-view></div>
+<div class="modal fade" id="poiDetailsModal" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Point of interest's details</h4>
+        </div>
+        <div class="modal-body">
+                <p>Number of views: {{SinglepoinumberOfViews}}</p>
+                <p>Description: {{SinglepoiDescription}}</p>
+                <p>Rank: {{Singlepoirank}}</p>
+                <p>ID: {{SinglepoiID}}</p>
+                <p>Name: {{SinglepoiName}}</p>
+                <p>Category: {{SinglepoiCategoryName}}</p>
+                <p ng-show="review1">First Review:
+                    <br>
+                    {{SinglepoiReview1.description}} 
+                    <br>
+                    {{SinglepoiReview1.date}}
+                </p>
+                <p ng-show="review2">Second Review:
+                        <br>
+                        {{SinglepoiReview2.description}} 
+                        <br>
+                        {{SinglepoiReview2.date}}
+                    </p>
+                <img ng-src="{{SinglepoiImage}}" style="width: 160px; height: 160px;">
+                <td><a href="#!/singlePOIWindow" ng-show="isLoggedIn();" class="fa fa-star" ng-click="addPOI(poi)">add to favorites</a></td>
+                <br>
+                <td><a href="#!/singlePOIWindow"  ng-show="isLoggedIn();" class="fa fa-star" ng-click="deletePOI(poi)">delete from favorites</a></td>
+                <br>
+        </div>
+        <div class="modal-footer">
+        <!-- <button type="button" ng-click="sendReview()" class="btn btn-default" data-dismiss="modal">Send</button> -->
+        </div>
+    </div>
+    </div>
+</div>
 
-    <div id="explore" ng-controller="exploreCtrl">
+    <div id="explore" ng-show="!isLoggedIn();">
         <!-- use api and get 3 poi to show here -->
         <!-- <div id="down0" ng-repeat="poi in pois"> -->
             <ul id="ulExpBar" >
             <!-- <div id="down1" ng-show="$index===0"> -->
                 <li ng-repeat="poi in pois" class="ExpBar">
-                    <bottun ng-click="showSingle(poi)" style="color:white">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></bottun>
+                    <!-- <bottun ng-click="showSingle(poi)" style="color:white">{{poi.name}} <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;"></bottun> -->
+                    <button style="color:white; background-color: #333;" id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal">
+                        {{poi.name}} 
+                        <img id="{{poi.poiID}}" ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+                    </button>
                 </li>
             </ul>
         <!-- </div> -->

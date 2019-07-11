@@ -2,26 +2,89 @@
         <link rel="stylesheet" type="text/css" href="css.css">
 </head>
 <body>
-        <table border="1">
+<div class="modal fade" id="poiDetailsModal" role="dialog">
+                <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Point of interest's details</h4>
+                        </div>
+                        <div class="modal-body">
+                                <p>Number of views: {{SinglepoinumberOfViews}}</p>
+                                <p>Description: {{SinglepoiDescription}}</p>
+                                <p>Rank: {{Singlepoirank}}</p>
+                                <p>ID: {{SinglepoiID}}</p>
+                                <p>Name: {{SinglepoiName}}</p>
+                                <p>Category: {{SinglepoiCategoryName}}</p>
+                                <p ng-show="review1">First Review:
+                                <br>
+                                {{SinglepoiReview1.description}} 
+                                <br>
+                                {{SinglepoiReview1.date}}
+                                </p>
+                                <p ng-show="review2">Second Review:
+                                        <br>
+                                        {{SinglepoiReview2.description}} 
+                                        <br>
+                                        {{SinglepoiReview2.date}}
+                                </p>
+                                <img ng-src="{{SinglepoiImage}}" style="width: 160px; height: 160px;">
+                                <br>
+                                <td><a ng-show="isLoggedIn();" class="fa fa-star" ng-click="addPOI(Singlepoi)">add to favorites</a></td>
+                                <br>
+                                <td><a ng-show="isLoggedIn();" class="fa fa-star" ng-click="deletePOI(Singlepoi)">delete from favorites</a></td>
+                                
+                        </div>
+                        <div class="modal-footer">
+                        <!-- <button type="button" ng-click="sendReview()" class="btn btn-default" data-dismiss="modal">Send</button> -->
+                        </div>
+                </div>
+                </div>
+        </div>
+        <table style="width: 50%; position: fixed;">
                 <tr>
-                        <td>
+                        <td colspan="2">
                                 <h2>Recommended points of interest for you </h2>
-                                <ul>
+                        </td>
+                        
+                </tr>
+                <tr ng-repeat="poi in recommendedPois track by $index">
+                        <td><button id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal"> {{poi.name}}</button></td>
+                        <td><img ng-src="{{poi.poiImage}}"  id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal" style="width: 160px; height: 120px;"></td>       
+                </tr>
+        </table>
+        <table style="width: 50%; position: relative; left: 50%;">
+                <tr>
+                        <td colspan="2">
+                                <h2>Your last saved points of interest</h2>
+                        </td>
+                </tr>
+                <tr ng-repeat="poi in savedPois track by $index">
+                        <td><button id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal"> {{poi.name}}</button></td>
+                        <td><img ng-src="{{poi.poiImage}}"  id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal" style="width: 160px; height: 120px;"></td>               
+                </tr>
+        </table>
+                                <!-- <ul>
                                         <li ng-repeat="poi in recommendedPois track by $index">
-                                                {{poi.name}}
-                                                <img ng-src="{{poi.poiImage}}" style="width: 160px; height: 160px;">
+                                                <bottun id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal" style="color:white">
+                                                        {{poi.name}} 
+                                                        <img ng-src="{{poi.poiImage}}" id="{{poi.poiID}}" style="width: 160px; height: 160px;">
+                                                </bottun>
                                         </li>
                                 </ul>
                         </td>
                         <td>
                                 <h2>Your last saved points of interest</h2>
                                 <ul>
-                                        <li ng-repeat="poiSave in savedPois track by $index">
-                                                {{poiSave.name}}
-                                                <img ng-src="{{poiSave.poiImage}}" style="width: 160px; height: 160px;">
+                                        <li ng-repeat="poi in savedPois track by $index">
+                                                <bottun id="{{poi.poiID}}" ng-click="showSingle($event)" data-toggle="modal" data-target="#poiDetailsModal" style="color:white">
+                                                        {{poi.name}} 
+                                                        <img ng-src="{{poi.poiImage}}" id="{{poi.poiID}}" style="width: 160px; height: 160px;">
+                                                </bottun>
                                         </li>
                                 </ul>
                         </td>
                 </tr>
-        </table>
+        </table> -->
 </body>

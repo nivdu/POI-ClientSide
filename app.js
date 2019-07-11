@@ -8,7 +8,6 @@ let app = angular.module('myApp', ["ngRoute"]);
 
 app.config(function($routeProvider)  {
     $routeProvider
-        // homepage
         .when('/home', {
             templateUrl: 'home/home.html',
         })
@@ -18,24 +17,15 @@ app.config(function($routeProvider)  {
         })
         .when('/register', {
             templateUrl: 'register/register.html',
-            // this is a template url
-            // templateUrl: 'pages/about/about.html',
-            // controller : 'aboutController as abtCtrl'
+            controller: 'registerCtrl as registerCtrl'
         })
-        // about
         .when('/about', {
-            // this is a template url
-            templateUrl: '  about/about.html',
-            // controller : 'aboutController as abtCtrl'
+            templateUrl: '  about/about.html'
         })
         .when('/logedIn', {
             templateUrl: 'logedIn/logedIn.html',
             controller : 'logedInCtrl as logedInCtrl'
-            // this is a template url
-            // templateUrl: 'pages/about/about.html',
-            // controller : 'aboutController as abtCtrl'
         })
-        // poi
         .when('/poi', {
             templateUrl: 'poi/poi.html',
             controller : 'poiController as poiCtrl'
@@ -66,23 +56,110 @@ app.config(function($routeProvider)  {
         })
         
         // other
-         .otherwise({ redirectTo: '/home' });
+        .otherwise({ redirectTo: '/home' });
 }); 
 
 
+
+
 app.service("myService", function() {
-    this.FavPOIs = function(){
-        $http({
-            method : "POST",
-            url : "http://localhost:3000/private/poi/GetSavedPOIOfUser",
-            headers : {
-                'x-auth-token': $rootScope.token
-            }
-        }).then(function success(response){
-            return response.data;
-        }, function myError(response){
-            return response.data;
-        });
-    }
+    this.poiDetails = {};
 });
+
+
+app.controller("mainCtrl", function($scope, $http, $rootScope, $window, myService){
+
+    $rootScope.currUser = "guest";
+    $rootScope.token = "guest";
+
+    $scope.getUsername = function(){
+        return $window.sessionStorage.getItem("currUser");
+    }
+
+    $http({
+        method : "GET",
+        url : "http://localhost:3000/poi/GetThreeRandomPopularPOI/-1"
+    }).then(function success(response){
+        $scope.pois=response.data;
+    }, function myError(response){
+        
+    });
+
+
+    $scope.showSingle=function(event){
+        $http({
+            method : "GET",
+            url : "http://localhost:3000/poi/GetPOIDetails/" + event.target.id
+        }).then(function success(response){
+            $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
+            $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
+            $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+            $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
+            $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
+            $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+            if(response.data.poiLastReviews.length>=1){
+                $rootScope.SinglepoiReview1 = response.data.poiLastReviews[0];
+                $scope.review1 = true;
+            }
+            else{
+                $scope.review1 = false;
+            }
+            if(response.data.poiLastReviews.length>=2){
+                $scope.review2 = true;
+                $rootScope.SinglepoiReview2 = response.data.poiLastReviews[1];
+            }
+            else{
+                $scope.review2 = false;
+            }
+            // $window.location.href = "#!/singlePOIWindow";
+        }, function myError(response){
+            $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+        });    
+    }
+
+
+    // $scope.showSingle = function (event) {
+    //     myService.poiDetails = event.target.id;
+    // };
+
+
+    // $scope.showSingle=function(singlePOI){
+    //     $http({
+    //         method : "GET",
+    //         url : "http://localhost:3000/poi/GetPOIDetails/" + singlePOI.poiID
+    //     }).then(function success(response){
+    //         $rootScope.SinglepoinumberOfViews=response.data.poiDetalis[0].numberOfViews;
+    //         $rootScope.SinglepoiDescription=response.data.poiDetalis[0].poiDescription;
+    //         $rootScope.Singlepoirank=response.data.poiDetalis[0].rank;
+    //         $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+    //         $rootScope.SinglepoiName=response.data.poiDetalis[0].name;
+    //         $rootScope.SinglepoiCategoryName=response.data.poiDetalis[0].CategoryName;
+    //         $rootScope.SinglepoiImage=response.data.poiDetalis[0].poiImage;
+    //         $window.location.href = "#!/singlePOIWindow";
+    //     }, function myError(response){
+    //         $rootScope.SinglepoiID=response.data.poiDetalis[0].poiID;
+    //     });    
+    // }
+
+    $scope.isLoggedIn = function()
+    {
+        if($rootScope.currUser!="guest"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    $scope.logout = function(){
+        $rootScope.currUser = "guest";
+        $rootScope.token = "guest";
+        $window.sessionStorage.removeItem("favoritesPOI")
+    }
+})
+
+
+
+
 
